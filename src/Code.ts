@@ -1,29 +1,29 @@
 
 import { FormNamespace } from './class/Form';
+import { ScheduleAdjustNameSpace } from './class/ScheduleAdjust';
 
 function createForm(): void {
-  // Logger.log('createForm');
-  // const newForm = FormApp.create('ディベートレクチャ申し込み');
-  // add_items(newForm);
-
   const form_obj = new FormNamespace.Form();
   form_obj.createForm()
 }
-
-
 
 
 function editForm(){
 
   const form_obj = new FormNamespace.Form();
   form_obj.editForm()
+}
 
-
-  // Logger.log('editForm');
-  // const originalForm = FormApp.openById('1J3_FM_VWfGhebKlSg3idbOTbhPJeSIUE3DoPCqUxFHc');
-  // add_items(originalForm);
+function adjustData(){
+  const schedule_adjust = new ScheduleAdjustNameSpace.ScheduleAdjust();
+  schedule_adjust.adjustData()
 
 }
+
+function test(){
+  Logger.log('aaa');
+}
+
 
 // function editWrong(){
   

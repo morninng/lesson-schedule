@@ -3,7 +3,8 @@ export namespace SpreadSheetNamespace {
 
   export enum SHEET_NAME {
     FORM_SOURCE = 'FORM_SOURCE',
-    FORM_RESULT = 'FORM_RESULT',
+    ADJUSTMENT = 'ADJUSTMENT',
+    FORM_ANSWER = 'フォームの回答 1',
   }
   
   export interface SheetPosition {
