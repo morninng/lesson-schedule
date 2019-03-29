@@ -39,36 +39,45 @@ export namespace ScheduleAdjustNameSpace {
 
 
 
-      const range2 = this.adjustment_sheet.getRange('A1:V100' );
+      const range2 = this.adjustment_sheet.getRange('A1:W100' );
       const all_adjustment_map = range2.getValues();
-
-
-
-
       const scheduled_days = this.extract_scheduled_days(all_adjustment_map);
+      const schedule_num = scheduled_days.length;
       Logger.log(`scheduled_days - ${scheduled_days}` )
 
       const scheduled_field:string[][] = []
 
-      for( let i=0; i < users_arr.length; i++){
+      for( let i=0; i <users_arr.length; i++){
+
+        const oneuser = users_arr[i];
+        Logger.log(`oneuser ${oneuser}`);
 
         const oneuser_expected_schedule: string = user_schedule_arr[i] || '';
-        Logger.log(`oneuser_expected_schedule ${oneuser_expected_schedule}`);
-        const oneuser_expected_teacher = user_teacher_expect_arr[i] || '';
-        Logger.log(`oneuser_expected_teacher ${{oneuser_expected_teacher}}`);
+        Logger.log(`oneuser_expected_schedule ${JSON.stringify(oneuser_expected_schedule)}`);
+        let oneuser_expected_teacher = '' + user_teacher_expect_arr[i] || '';
+        Logger.log(`oneuser_expected_teacher ${JSON.stringify(oneuser_expected_teacher)}}`);
         const oneuser_schedule: string[] = []
 
 
-        scheduled_days.forEach((one_day: string)=>{
+        const students_map_transposed = this.get_students();
 
+
+
+
+        for( let j = 0; j < scheduled_days.length; j++ ){
+          const one_day = scheduled_days[j]
+          const students_of_this_day = students_map_transposed[j]
+          let oneuser_expected_teacher_each = oneuser_expected_teacher;
+          if(students_of_this_day.indexOf(oneuser) !== -1){
+            oneuser_expected_teacher_each = 's_' + oneuser_expected_teacher;
+          }
           if(oneuser_expected_schedule.indexOf(one_day) !== -1){
-            oneuser_schedule.push(oneuser_expected_teacher);
+            oneuser_schedule.push(oneuser_expected_teacher_each);
           }else{
             oneuser_schedule.push('');
           }
 
-        });
-
+        }
         scheduled_field.push(oneuser_schedule);
       }
 
@@ -98,6 +107,27 @@ export namespace ScheduleAdjustNameSpace {
 
 
       return scheduled_days;
+    }
+
+    get_students(){
+
+
+      const range = this.adjustment_sheet.getRange('C25:W50' );
+      const students_map = range.getValues();
+      const column_num = students_map[0].length;
+
+      const students_map_transposed: any[][] = []
+
+      for(let i = 0; i < column_num; i++){
+        const students_column: any[] = []
+        students_map.forEach((students_row: any[])=>{
+          students_column.push(students_row[i]);
+        });
+        students_map_transposed.push(students_column);
+      }
+
+      return students_map_transposed;
+
     }
     
 
@@ -135,10 +165,10 @@ export namespace ScheduleAdjustNameSpace {
         }
       }
 
-      Logger.log('users ss', users);
+      Logger.log(`users ss ${JSON.stringify(users)}`, );
       // Logger.log(users);
       const user_info =  {users, user_schedule, user_teacher_expect}
-      Logger.log('user_info', user_info);
+      Logger.log(`user_info ${JSON.stringify(user_info)}` );
       return user_info;
     }
 
