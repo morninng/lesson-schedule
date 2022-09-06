@@ -3,7 +3,7 @@ on:
   push:
     branches:
       # - master
-      - feature/confirm
+      - feature/aaa
 jobs:
   client-test:
     runs-on: ubuntu-latest

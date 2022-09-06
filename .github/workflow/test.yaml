@@ -4,5 +4,5 @@ jobs:
   client-test:
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'aaa bbb cc dd ddd c'
+      - run: echo 'sssdd c'
 
