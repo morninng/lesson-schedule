@@ -1,0 +1,12 @@
+name: test
+on:
+  push:
+    branches:
+      # - master
+      - feature/confirm
+jobs:
+  client-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo
+        run: echo 'aaa bbb ccc'
