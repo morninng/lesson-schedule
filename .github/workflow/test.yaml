@@ -3,7 +3,7 @@ on:
   push:
     branches:
       # - master
-      - morninng/feat/INV-117_githubaction_test_lint 
+      - feature/confirm
 jobs:
   client-test:
     runs-on: ubuntu-latest
