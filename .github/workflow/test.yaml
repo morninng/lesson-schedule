@@ -1,8 +1,5 @@
 name: abcdefg
-on:
-  push:
-    branches:
-      - feature/aaa
+on: [push]
 jobs:
   client-test:
     runs-on: ubuntu-latest
